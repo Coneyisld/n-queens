@@ -117,13 +117,22 @@
           count++;
         }
       });
-
+  
       return count > 1;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      var rows = this.rows();
+
+      for (var i = 0; i < rows.length; i++) {
+        if (this.hasColConflictAt(i)) {
+          return true;  
+        }
+      }      
+
+      return false;
+
     },
 
 

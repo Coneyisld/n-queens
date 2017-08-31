@@ -170,12 +170,12 @@
       //var j =  this._getFirstRowColumnIndexForMajorDiagonalOn(majorDiagonalColumnIndexAtFirstRow);// column value
       var j =  majorDiagonalColumnIndexAtFirstRow// column value
       
-      console.log("j (first row starting column: ", j);
+      //console.log("j (first row starting column: ", j);
       var count = 0; 
       
       for (var i = 0; i < matrixArray.length; i++) {
         var currentLocation = matrixArray[i][j];
-        console.log("Current Location: ", currentLocation);
+        //console.log("Current Location: ", currentLocation);
         // check if the value is in the matrix
         if (currentLocation === undefined) {
           count += 0;
@@ -186,7 +186,7 @@
 
         j++;// increments column value
       }
-      console.log("Count: " + count);
+      //console.log("Count: " + count);
       return count > 1;
       
     },
@@ -201,8 +201,8 @@
         // iterate from -1*Matrix width through Matrix Width
         for (var i = -1 * matrixArray.length; i <= matrixArray.length; i++){
             // if there is a majorDiagonalConflict
-            console.log("Index: " + i);
-            console.log("has Major Diagonal conflict: " + this.hasMajorDiagonalConflictAt(i))
+            //console.log("Index: " + i);
+            //console.log("has Major Diagonal conflict: " + this.hasMajorDiagonalConflictAt(i))
             if ( this.hasMajorDiagonalConflictAt(i)){
               return true;
             }    
@@ -219,13 +219,60 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var matrixArray = this.rows();// identify the matrix      
+
+      var i = 0;// start at initial point row value = 0, column value (computed)
+      //var j =  this._getFirstRowColumnIndexForMajorDiagonalOn(majorDiagonalColumnIndexAtFirstRow);// column value
+      var j =  minorDiagonalColumnIndexAtFirstRow// column value
+      
+      //console.log("j (first row starting column: ", j);
+      var count = 0; 
+      
+      for (var i = 0; i < matrixArray.length; i++) {
+        var currentLocation = matrixArray[i][j];
+        //console.log("Current Location: ", currentLocation);
+        // check if the value is in the matrix
+        if (currentLocation === undefined) {
+          count += 0;
+          //continue;// outside matrix - don't do anything
+        } else {
+          count += matrixArray[i][j];// inside matrix - add value at cell
+        }
+
+        j--;// increments column value
+      }
+      //console.log("Count: " + count);
+      return count > 1;
+      
     },
+
+      //return false; // fixme
+
+
+    //},
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
-    }
+      
+      //return false; // fixme
+      var matrixArray = this.rows();
+
+        // iterate from -1*Matrix width through Matrix Width
+        // for (var i = -1 * matrixArray.length; i <= matrixArray.length; i++){
+      for (var i = 2 * matrixArray.length; i >= 0; i--) {
+        // if there is a majorDiagonalConflict
+        //console.log("Index: " + i);
+        //console.log("has Major Diagonal conflict: " + this.hasMajorDiagonalConflictAt(i))
+        if ( this.hasMinorDiagonalConflictAt(i)) {
+          return true;
+        }    
+      }        
+
+        // if after iterating through all of them, no conflicts
+      return false;
+
+
+    },
 
     /*--------------------  End of Helper Functions  ---------------------*/
 
